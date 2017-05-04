@@ -69,7 +69,18 @@ export class QuizService {
           break;
         case 3:
           console.log('Summary');
-          this.scores = messageData.scores;
+          this.scores = messageData.scores.sort((a, b) => {
+            // a comes after b
+            if (a[1] < b[1]) {
+              return 1;
+            }
+            // a comes before b
+            if (a[1] > b[1]) {
+              return -1;
+            }
+            // a and b are equal
+            return 0;
+          });
           this.router.navigate(['summary']);
           break;
         default:
