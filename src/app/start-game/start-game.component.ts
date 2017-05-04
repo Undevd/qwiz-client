@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+
+import { QuizService } from '../quiz-service/quiz.service';
 
 @Component({
   selector: 'app-start-game',
@@ -10,7 +11,7 @@ export class StartGameComponent implements OnInit {
 
   countDown = 1;
 
-  constructor(private router: Router) { }
+  constructor(private quizService: QuizService) { }
 
   ngOnInit() {
     const interval = setInterval(() => {
@@ -18,7 +19,7 @@ export class StartGameComponent implements OnInit {
       if (this.countDown < 1) {
         clearInterval(interval);
         console.log('starting game');
-        this.router.navigate(['question']);
+        this.quizService.getNextQuestion();
       }
     }, 1000);
   }

@@ -70,6 +70,7 @@ export class QuizService {
         case 3:
           console.log('Summary');
           this.scores = messageData.scores;
+          this.router.navigate(['summary']);
           break;
         default:
           console.log('Unknown message type');
@@ -99,6 +100,9 @@ export class QuizService {
     };
     console.log('Sending websocket message ', websocketMessage);
     this.websocket.send(JSON.stringify(websocketMessage));
+    if (this.questionNumber === 5) {
+      this.router.navigate(['complete']);
+    }
   }
 
   sendResult() {

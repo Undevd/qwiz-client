@@ -15,6 +15,7 @@ import { QuestionComponent } from './question/question.component';
 import { OutcomePageComponent } from './outcome-page/outcome-page.component';
 import { SummaryPageComponent } from './summary-page/summary-page.component';
 import { QuizService } from './quiz-service/quiz.service';
+import { CompleteComponent } from './complete/complete.component';
 
 export const appRoutes: Routes = [
   { path: 'landing', component: LandingComponent },
@@ -23,6 +24,7 @@ export const appRoutes: Routes = [
   { path: 'question', component: QuestionComponent },
   { path: 'outcome', component: OutcomePageComponent },
   { path: 'summary', component: SummaryPageComponent },
+  { path: 'complete', component: CompleteComponent },
   { path: '', redirectTo: '/landing', pathMatch: 'full' }
 ];
 
@@ -34,7 +36,8 @@ export const appRoutes: Routes = [
     StartGameComponent,
     QuestionComponent,
     OutcomePageComponent,
-    SummaryPageComponent
+    SummaryPageComponent,
+    CompleteComponent
   ],
   imports: [
     BrowserModule,
