@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-question',
@@ -9,13 +10,14 @@ export class QuestionComponent implements OnInit {
 
   answers = ['one', 'a half', 'seventeenthousand', 'pi'];
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
   submitAnswer(answer: string) {
     console.log(answer);
+    this.router.navigate(['outcome']);
   }
 
 }
