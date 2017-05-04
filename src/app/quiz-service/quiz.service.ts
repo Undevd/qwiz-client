@@ -4,10 +4,12 @@ import { Injectable } from '@angular/core';
 export class QuizService {
 
   websocket: WebSocket;
+  currentHandle: string;
 
   constructor() { }
 
   open(roomDetails) {
+    this.currentHandle = roomDetails.handle;
     const url = 'wss://quiz-monster.herokuapp.com/quiz/' + roomDetails.roomName + '/' + roomDetails.handle + '/';
     console.log(url);
     this.websocket = new WebSocket(url);
@@ -29,6 +31,15 @@ export class QuizService {
 
   send() {
 
+  }
+
+  sendMessage(message) {
+    const websocketMessage = {
+      handle: this.currentHandle,
+      message: message
+    };
+    console.log('Sending websocket message ', websocketMessage);
+    this.websocket.send(JSON.stringify(websocketMessage));
   }
 
 }
