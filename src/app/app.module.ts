@@ -9,16 +9,32 @@ import { MdCardModule, MdInputModule, MdButtonModule, MdIconModule, MdListModule
 import { AngularMaterialModule } from './angular-material/angular-material.module';
 import { AppComponent } from './app.component';
 import { LandingComponent } from './landing/landing.component';
+import { WaitingComponent } from './waiting/waiting.component';
+import { StartGameComponent } from './start-game/start-game.component';
+import { QuestionComponent } from './question/question.component';
+import { OutcomePageComponent } from './outcome-page/outcome-page.component';
+import { SummaryPageComponent } from './summary-page/summary-page.component';
+import { QuizService } from './quiz-service/quiz.service';
 
 export const appRoutes: Routes = [
   { path: 'landing', component: LandingComponent },
+  { path: 'waiting/:room/:handle', component: WaitingComponent },
+  { path: 'start', component: StartGameComponent },
+  { path: 'question', component: QuestionComponent },
+  { path: 'outcome', component: OutcomePageComponent },
+  { path: 'summary', component: SummaryPageComponent },
   { path: '', redirectTo: '/landing', pathMatch: 'full' }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    LandingComponent
+    LandingComponent,
+    WaitingComponent,
+    StartGameComponent,
+    QuestionComponent,
+    OutcomePageComponent,
+    SummaryPageComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +49,7 @@ export const appRoutes: Routes = [
     MdIconModule,
     MdListModule,
   ],
-  providers: [],
+  providers: [QuizService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
