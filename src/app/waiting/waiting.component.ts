@@ -34,4 +34,8 @@ export class WaitingComponent implements OnInit {
     this.router.navigate(['start']);
   }
 
+  quit() {
+    this.quizService.quit();
+  }
+
 }

@@ -22,11 +22,7 @@ export class QuizService {
     this.websocket.onopen = () => {
       console.log('websocket opened');
     };
-    this.websocket.onmessage = (message) => {
-      // console.log(message);
-      const messageData = JSON.parse(message.data);
-      console.log('Got new message', messageData);
-    };
+    this.websocket.onmessage = this.handleIncomingMessage();
     this.websocket.onclose = () => {
       console.log('websocket closed');
     };
@@ -40,6 +36,32 @@ export class QuizService {
       this.websocket.send(JSON.stringify(connection));
       console.log('sent message', JSON.stringify(connection));
     }, 1000);
+  }
+
+  handleIncomingMessage() {
+    return (message) => {
+      // console.log(message);
+      const messageData = JSON.parse(message.data);
+      console.log('Got new message', messageData);
+
+      switch (messageData.type) {
+        case 0:
+          console.log('New Room');
+          break;
+        case 1:
+          console.log('Questions');
+          break;
+        case 2:
+          console.log('Result');
+          break;
+        case 3:
+          console.log('Summary');
+          break;
+        default:
+          console.log('Unknown message type');
+
+      }
+    };
   }
 
   send() {
@@ -60,11 +82,12 @@ export class QuizService {
   }
 
   getAnswers() {
-    return this.currentAnswers;
+    return this.shuffle(this.currentAnswers);
   }
 
   chooseAnswer(answer: string) {
     this.chosenAnswer = answer;
+    console.log('Answer correct: ' + (this.getCorrectAnswer() === answer));
     this.router.navigate(['outcome']);
   }
 
@@ -74,6 +97,19 @@ export class QuizService {
 
   getCorrectAnswer() {
     return 'pi';
+  }
+
+  quit() {
+    this.websocket.close();
+  }
+
+  // from http://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
+  shuffle(a) {
+    for (let i = a.length; i; i--) {
+      let j = Math.floor(Math.random() * i);
+      [a[i - 1], a[j]] = [a[j], a[i - 1]];
+    }
+    return a;
   }
 
 }
