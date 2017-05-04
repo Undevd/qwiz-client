@@ -16,16 +16,17 @@ export class OutcomePageComponent implements OnInit {
   peopleToAnswer;
 
   constructor(private router: Router,
-  private quizService: QuizService) { }
+    private quizService: QuizService) { }
 
   ngOnInit() {
-    this.question = this.quizService.getQuestion();
+    this.question = this.quizService.getCurrentQuestion();
     this.chosenAnswer = this.quizService.getChosenAnswer();
     this.correctAnswer = this.quizService.getCorrectAnswer();
   }
 
   nextQuestion() {
-    this.router.navigate(['summary']);
+    this.quizService.getNextQuestion();
+    // this.router.navigate(['summary']);
   }
 
 }

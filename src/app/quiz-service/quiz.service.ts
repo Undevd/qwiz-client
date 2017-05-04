@@ -9,8 +9,10 @@ export class QuizService {
   websocket: WebSocket;
   currentHandle: string;
   currentQuestion: string = 'What is irrational?';
-  currentAnswers: string[] = ['one', 'a half', 'seventeenthousand', 'pi'];;
+  currentAnswers: string[] = ['one', 'a half', 'seventeenthousand', 'pi'];
+  correctAnswer: string = 'pi';
   chosenAnswer: string;
+  questionNumber: number;
 
   constructor(private router: Router) { }
 
@@ -41,7 +43,7 @@ export class QuizService {
   handleIncomingMessage() {
     return (message) => {
       // console.log(message);
-      const messageData = JSON.parse(message.data);
+      const messageData: QuizMessage = JSON.parse(message.data);
       console.log('Got new message', messageData);
 
       switch (messageData.type) {
@@ -50,6 +52,10 @@ export class QuizService {
           break;
         case 1:
           console.log('Questions');
+          this.currentQuestion = messageData.message;
+          this.currentAnswers = [messageData.incorrect1, messageData.incorrect2, messageData.incorrect3];
+          this.correctAnswer = messageData.correct;
+          this.router.navigate(['question']);
           break;
         case 2:
           console.log('Result');
@@ -70,6 +76,7 @@ export class QuizService {
 
   sendMessage(message) {
     const websocketMessage = {
+      type: QuizMessageType.Message,
       handle: this.currentHandle,
       message: message
     };
@@ -77,7 +84,22 @@ export class QuizService {
     this.websocket.send(JSON.stringify(websocketMessage));
   }
 
-  getQuestion() {
+  getNextQuestion() {
+    const websocketMessage = {
+      type: QuizMessageType.Question,
+      handle: this.currentHandle,
+      message: ''
+    };
+    console.log('Sending websocket message ', websocketMessage);
+    this.websocket.send(JSON.stringify(websocketMessage));
+  }
+
+  startGame() {
+    this.questionNumber = 1;
+    this.router.navigate(['start']);
+  }
+
+  getCurrentQuestion() {
     return this.currentQuestion;
   }
 
@@ -96,7 +118,7 @@ export class QuizService {
   }
 
   getCorrectAnswer() {
-    return 'pi';
+    return this.correctAnswer;
   }
 
   quit() {
@@ -130,5 +152,6 @@ export enum QuizMessageType {
   NewRoom,
   Question,
   Result,
-  Summary
+  Summary,
+  Message
 }
