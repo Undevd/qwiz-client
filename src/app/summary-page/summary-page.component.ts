@@ -8,14 +8,12 @@ import { QuizService } from '../quiz-service/quiz.service';
 })
 export class SummaryPageComponent implements OnInit {
 
-  numberCorrect;
-  numberIncorrect;
+  scores;
 
   constructor(private quizService: QuizService) { }
 
   ngOnInit() {
-    this.numberCorrect = this.quizService.getNumberOfCorrect();
-    this.numberIncorrect = this.quizService.getNumberOfIncorrect();
+    this.scores = this.quizService.getScores();
   }
 
   startNew() {

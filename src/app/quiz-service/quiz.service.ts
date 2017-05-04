@@ -13,8 +13,7 @@ export class QuizService {
   correctAnswer: string = 'pi';
   chosenAnswer: string;
   questionNumber: number;
-  numberOfCorrect: string;
-  numberOfIncorrect: string;
+  scores;
 
   constructor(private router: Router) { }
 
@@ -54,8 +53,14 @@ export class QuizService {
           break;
         case 1:
           console.log('Questions');
-          this.currentQuestion = messageData.message;
-          this.currentAnswers = [messageData.incorrect_answer_1, messageData.incorrect_answer_2, messageData.incorrect_answer_3];
+          this.questionNumber += 1;
+          this.currentQuestion = messageData.question_text;
+          this.currentAnswers = [
+            messageData.correct_answer,
+            messageData.incorrect_answer_1,
+            messageData.incorrect_answer_2,
+            messageData.incorrect_answer_3
+          ];
           this.correctAnswer = messageData.correct_answer;
           this.router.navigate(['question']);
           break;
@@ -64,12 +69,10 @@ export class QuizService {
           break;
         case 3:
           console.log('Summary');
-          this.numberOfCorrect = messageData.correct_answer;
-          this.numberOfIncorrect = messageData.incorrect_answer_1;
+          this.scores = messageData.scores;
           break;
         default:
           console.log('Unknown message type');
-
       }
     };
   }
@@ -89,18 +92,27 @@ export class QuizService {
   }
 
   getNextQuestion() {
-    const websocketMessage = {
-      type: QuizMessageType.Question,
+    const websocketMessage: SendQuizMessage = {
+      type: this.questionNumber === 5 ? QuizMessageType.Summary : QuizMessageType.Question,
       handle: this.currentHandle,
-      message: '',
-      q_id: this.questionNumber
+      message: this.questionNumber as any
+    };
+    console.log('Sending websocket message ', websocketMessage);
+    this.websocket.send(JSON.stringify(websocketMessage));
+  }
+
+  sendResult() {
+    const websocketMessage: SendQuizMessage = {
+      type: QuizMessageType.Result,
+      handle: this.currentHandle,
+      message: this.getAnswerIsCorrect() ? 'correct' : 'incorrect'
     };
     console.log('Sending websocket message ', websocketMessage);
     this.websocket.send(JSON.stringify(websocketMessage));
   }
 
   startGame() {
-    this.questionNumber = 1;
+    this.questionNumber = 0;
     this.router.navigate(['start']);
   }
 
@@ -114,7 +126,7 @@ export class QuizService {
 
   chooseAnswer(answer: string) {
     this.chosenAnswer = answer;
-    console.log('Answer correct: ' + (this.getCorrectAnswer() === answer));
+    this.sendResult();
     this.router.navigate(['outcome']);
   }
 
@@ -126,12 +138,12 @@ export class QuizService {
     return this.correctAnswer;
   }
 
-  getNumberOfCorrect() {
-    return this.numberOfCorrect;
+  getAnswerIsCorrect() {
+    return this.correctAnswer === this.chosenAnswer;
   }
 
-  getNumberOfIncorrect() {
-    return this.numberOfIncorrect;
+  getScores() {
+    return this.scores;
   }
 
   quit() {
@@ -147,6 +159,23 @@ export class QuizService {
     return a;
   }
 
+  testSummaryResponse() {
+    const websocketMessage = {
+      type: QuizMessageType.Result,
+      handle: this.currentHandle,
+      message: 'correct',
+      q_id: 10
+    };
+    console.log('Sending websocket message ', websocketMessage);
+    this.websocket.send(JSON.stringify(websocketMessage));
+  }
+
+}
+
+export class SendQuizMessage {
+  type: number;
+  handle: string;
+  message: string;
 }
 
 export class QuizMessage {
@@ -160,6 +189,8 @@ export class QuizMessage {
   incorrect_answer_3: string;
   result: boolean;
   users: string[];
+  scores;
+  question_text: string;
 }
 
 export enum QuizMessageType {

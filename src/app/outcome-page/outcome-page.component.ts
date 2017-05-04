@@ -29,4 +29,8 @@ export class OutcomePageComponent implements OnInit {
     // this.router.navigate(['summary']);
   }
 
+  testSummaryResponse() {
+    this.quizService.testSummaryResponse();
+  }
+
 }
