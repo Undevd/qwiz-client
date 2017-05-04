@@ -16,7 +16,8 @@ export class QuizService {
       const messageData = JSON.parse(message.data);
       console.log('Got new message', messageData);
     };
-    setTimeout(function () {
+
+    setTimeout(() => {
       const connection = {
         message: roomDetails.roomName,
         handle: roomDetails.handle
