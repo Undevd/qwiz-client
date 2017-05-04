@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class StartGameComponent implements OnInit {
 
-  countDown = 5;
+  countDown = 1;
 
   constructor(private router: Router) { }
 

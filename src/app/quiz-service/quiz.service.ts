@@ -13,6 +13,8 @@ export class QuizService {
   correctAnswer: string = 'pi';
   chosenAnswer: string;
   questionNumber: number;
+  numberOfCorrect: string;
+  numberOfIncorrect: string;
 
   constructor(private router: Router) { }
 
@@ -53,8 +55,8 @@ export class QuizService {
         case 1:
           console.log('Questions');
           this.currentQuestion = messageData.message;
-          this.currentAnswers = [messageData.incorrect1, messageData.incorrect2, messageData.incorrect3];
-          this.correctAnswer = messageData.correct;
+          this.currentAnswers = [messageData.incorrect_answer_1, messageData.incorrect_answer_2, messageData.incorrect_answer_3];
+          this.correctAnswer = messageData.correct_answer;
           this.router.navigate(['question']);
           break;
         case 2:
@@ -62,6 +64,8 @@ export class QuizService {
           break;
         case 3:
           console.log('Summary');
+          this.numberOfCorrect = messageData.correct_answer;
+          this.numberOfIncorrect = messageData.incorrect_answer_1;
           break;
         default:
           console.log('Unknown message type');
@@ -88,7 +92,8 @@ export class QuizService {
     const websocketMessage = {
       type: QuizMessageType.Question,
       handle: this.currentHandle,
-      message: ''
+      message: '',
+      q_id: this.questionNumber
     };
     console.log('Sending websocket message ', websocketMessage);
     this.websocket.send(JSON.stringify(websocketMessage));
@@ -121,6 +126,14 @@ export class QuizService {
     return this.correctAnswer;
   }
 
+  getNumberOfCorrect() {
+    return this.numberOfCorrect;
+  }
+
+  getNumberOfIncorrect() {
+    return this.numberOfIncorrect;
+  }
+
   quit() {
     this.websocket.close();
   }
@@ -138,12 +151,13 @@ export class QuizService {
 
 export class QuizMessage {
   type: number;
+  q_id: number;
   handle: string;
   message: string;
-  correct: string;
-  incorrect1: string;
-  incorrect2: string;
-  incorrect3: string;
+  correct_answer: string;
+  incorrect_answer_1: string;
+  incorrect_answer_2: string;
+  incorrect_answer_3: string;
   result: boolean;
   users: string[];
 }

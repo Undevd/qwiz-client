@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { QuizService } from '../quiz-service/quiz.service';
 
 @Component({
   selector: 'app-summary-page',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SummaryPageComponent implements OnInit {
 
-  constructor() { }
+  numberCorrect;
+  numberIncorrect;
+
+  constructor(private quizService: QuizService) { }
 
   ngOnInit() {
+    this.numberCorrect = this.quizService.getNumberOfCorrect();
+    this.numberIncorrect = this.quizService.getNumberOfIncorrect();
   }
 
   startNew() {
