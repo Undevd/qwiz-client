@@ -9,7 +9,6 @@ import { MdCardModule, MdInputModule, MdButtonModule, MdIconModule, MdListModule
 import { AngularMaterialModule } from './angular-material/angular-material.module';
 import { AppComponent } from './app.component';
 import { LandingComponent } from './landing/landing.component';
-import { SignupComponent } from './signup/signup.component';
 
 export const appRoutes: Routes = [
   { path: 'landing', component: LandingComponent },
@@ -19,8 +18,7 @@ export const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    LandingComponent,
-    SignupComponent
+    LandingComponent
   ],
   imports: [
     BrowserModule,
