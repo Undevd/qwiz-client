@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { QuizService } from '../quiz-service/quiz.service';
+
 @Component({
   selector: 'app-outcome-page',
   templateUrl: './outcome-page.component.html',
@@ -8,9 +10,18 @@ import { Router } from '@angular/router';
 })
 export class OutcomePageComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  question;
+  chosenAnswer;
+  correctAnswer;
+  peopleToAnswer;
+
+  constructor(private router: Router,
+  private quizService: QuizService) { }
 
   ngOnInit() {
+    this.question = this.quizService.getQuestion();
+    this.chosenAnswer = this.quizService.getChosenAnswer();
+    this.correctAnswer = this.quizService.getCorrectAnswer();
   }
 
   nextQuestion() {

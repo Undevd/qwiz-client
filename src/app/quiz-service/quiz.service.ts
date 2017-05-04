@@ -33,9 +33,10 @@ export class QuizService {
 
     setTimeout(() => {
       const connection = {
-        message: roomDetails.roomName,
-        handle: roomDetails.handle
-      };
+        type: QuizMessageType.NewRoom,
+        handle: roomDetails.handle,
+        message: roomDetails.roomName
+      } as QuizMessage;
       this.websocket.send(JSON.stringify(connection));
       console.log('sent message', JSON.stringify(connection));
     }, 1000);
@@ -67,4 +68,31 @@ export class QuizService {
     this.router.navigate(['outcome']);
   }
 
+  getChosenAnswer() {
+    return this.chosenAnswer;
+  }
+
+  getCorrectAnswer() {
+    return 'pi';
+  }
+
+}
+
+export class QuizMessage {
+  type: number;
+  handle: string;
+  message: string;
+  correct: string;
+  incorrect1: string;
+  incorrect2: string;
+  incorrect3: string;
+  result: boolean;
+  users: string[];
+}
+
+export enum QuizMessageType {
+  NewRoom,
+  Question,
+  Result,
+  Summary
 }
