@@ -9,7 +9,7 @@ import { QuizService } from '../quiz-service/quiz.service';
 })
 export class StartGameComponent implements OnInit {
 
-  countDown = 1;
+  countDown = 3;
 
   constructor(private quizService: QuizService) { }
 

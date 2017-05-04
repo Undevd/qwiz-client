@@ -14,6 +14,7 @@ export class QuizService {
   chosenAnswer: string;
   questionNumber: number;
   scores;
+  maxQuestions = 6;
 
   constructor(private router: Router) { }
 
@@ -105,13 +106,13 @@ export class QuizService {
 
   getNextQuestion() {
     const websocketMessage: SendQuizMessage = {
-      type: this.questionNumber === 5 ? QuizMessageType.Summary : QuizMessageType.Question,
+      type: this.questionNumber >= this.maxQuestions ? QuizMessageType.Summary : QuizMessageType.Question,
       handle: this.currentHandle,
       message: this.questionNumber as any
     };
     console.log('Sending websocket message ', websocketMessage);
     this.websocket.send(JSON.stringify(websocketMessage));
-    if (this.questionNumber === 5) {
+    if (this.questionNumber >= this.maxQuestions) {
       this.router.navigate(['complete']);
     }
   }
