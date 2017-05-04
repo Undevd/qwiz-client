@@ -22,7 +22,7 @@ export class LandingComponent implements OnInit {
 
   submit(formValue) {
     console.log(formValue);
-    const url = 'wss://quiz-monster.herokuapp.com/chat/' + formValue.roomName + '/' + formValue.handle + '/';
+    const url = 'wss://quiz-monster.herokuapp.com/quiz/' + formValue.roomName + '/' + formValue.handle + '/';
     console.log(url);
     const websocket = new WebSocket(url);
     websocket.onmessage = (message) => {
