@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-landing',
@@ -7,7 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LandingComponent implements OnInit {
 
-  constructor() { }
+  roomForm: FormGroup;
+  room: string;
+
+  constructor(private fb: FormBuilder) {
+    this.fb.group({
+      roomName: this.fb.control('')
+    });
+  }
 
   ngOnInit() {
   }

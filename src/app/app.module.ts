@@ -1,13 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { MdCardModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MdCardModule, MdInputModule, MdButtonModule, MdIconModule, MdListModule } from '@angular/material';
 
 import { AngularMaterialModule } from './angular-material/angular-material.module';
 import { AppComponent } from './app.component';
 import { LandingComponent } from './landing/landing.component';
+import { SignupComponent } from './signup/signup.component';
 
 export const appRoutes: Routes = [
   { path: 'landing', component: LandingComponent },
@@ -17,14 +19,21 @@ export const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    LandingComponent
+    LandingComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),
-    MdCardModule
+    BrowserAnimationsModule,
+    MdCardModule,
+    MdInputModule,
+    MdButtonModule,
+    MdIconModule,
+    MdListModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
