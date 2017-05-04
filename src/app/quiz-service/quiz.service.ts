@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 declare var ReconnectingWebSocket;
 
@@ -7,8 +8,11 @@ export class QuizService {
 
   websocket: WebSocket;
   currentHandle: string;
+  currentQuestion: string = 'What is irrational?';
+  currentAnswers: string[] = ['one', 'a half', 'seventeenthousand', 'pi'];;
+  chosenAnswer: string;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   open(roomDetails) {
     this.currentHandle = roomDetails.handle;
@@ -48,6 +52,19 @@ export class QuizService {
     };
     console.log('Sending websocket message ', websocketMessage);
     this.websocket.send(JSON.stringify(websocketMessage));
+  }
+
+  getQuestion() {
+    return this.currentQuestion;
+  }
+
+  getAnswers() {
+    return this.currentAnswers;
+  }
+
+  chooseAnswer(answer: string) {
+    this.chosenAnswer = answer;
+    this.router.navigate(['outcome']);
   }
 
 }

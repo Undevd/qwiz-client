@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+
+import { QuizService } from '../quiz-service/quiz.service';
 
 @Component({
   selector: 'app-question',
@@ -8,16 +9,19 @@ import { Router } from '@angular/router';
 })
 export class QuestionComponent implements OnInit {
 
-  answers = ['one', 'a half', 'seventeenthousand', 'pi'];
+  question;
+  answers;
 
-  constructor(private router: Router) { }
+  constructor(private quizService: QuizService) { }
 
   ngOnInit() {
+    this.question = this.quizService.getQuestion();
+    this.answers = this.quizService.getAnswers();
   }
 
   submitAnswer(answer: string) {
     console.log(answer);
-    this.router.navigate(['outcome']);
+    this.quizService.chooseAnswer(answer);
   }
 
 }

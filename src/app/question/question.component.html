@@ -3,7 +3,7 @@
     <md-card>
       <md-card-title>Question</md-card-title>
       <md-card-content>
-        What is irrational?
+        {{question}}
         <button *ngFor="let answer of answers" md-button (click)="submitAnswer(answer)" class="answer-button">{{answer}}</button>
       </md-card-content>
     </md-card>
