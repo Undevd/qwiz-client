@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { QuizService } from '../quiz-service/quiz.service';
 
@@ -14,8 +14,9 @@ export class WaitingComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private quizService: QuizService
-    ) {
+  ) {
     this.roomName = 'Room Name';
   }
 
@@ -27,6 +28,10 @@ export class WaitingComponent implements OnInit {
 
   sendMessage() {
     this.quizService.sendMessage('message');
+  }
+
+  startGame() {
+    this.router.navigate(['start']);
   }
 
 }

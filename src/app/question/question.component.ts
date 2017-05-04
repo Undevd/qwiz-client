@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QuestionComponent implements OnInit {
 
+  answers = ['one', 'a half', 'seventeenthousand', 'pi'];
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  submitAnswer(answer: string) {
+    console.log(answer);
   }
 
 }
