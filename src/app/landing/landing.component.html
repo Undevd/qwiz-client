@@ -3,14 +3,16 @@
     <md-card>
       <md-card-title>Join a room</md-card-title>
       <md-card-content>
-        <form [formGroup]="roomForm" (ngSubmit)="submit(roomForm.value)">
+        <form [formGroup]="roomForm" (ngSubmit)="submit(roomForm.value)" class="block-inputs">
           <md-input-container>
             <input mdInput placeholder="Room Name" value="" formControlName="roomName">
           </md-input-container>
           <md-input-container>
             <input mdInput placeholder="Handle" value="" formControlName="handle">
           </md-input-container>
-          <button md-button>Go</button>
+          <div class="right-buttons">
+            <button md-button>Go</button>
+          </div>
         </form>
       </md-card-content>
     </md-card>

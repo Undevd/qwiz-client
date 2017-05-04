@@ -25,7 +25,7 @@ export class OutcomePageComponent implements OnInit {
   }
 
   nextQuestion() {
-
+    this.router.navigate(['summary']);
   }
 
 }

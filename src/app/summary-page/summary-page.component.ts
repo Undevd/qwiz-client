@@ -12,4 +12,8 @@ export class SummaryPageComponent implements OnInit {
   ngOnInit() {
   }
 
+  startNew() {
+
+  }
+
 }

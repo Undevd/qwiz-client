@@ -7,6 +7,11 @@
     margin-left: -8px;
 }
 
+.right-buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .responsive-padding {
     padding-top: 34px;
 }
