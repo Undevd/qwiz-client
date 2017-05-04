@@ -1,9 +1,18 @@
 <div class="background responsive-padding">
   <div class="container">
     <md-card>
-      <p>
-        landing works!
-      </p>
+      <md-card-title>Join a room</md-card-title>
+      <md-card-content>
+        <form [formGroup]="roomForm" (ngSubmit)="submit(roomForm.value)">
+          <md-input-container>
+            <input mdInput placeholder="Room Name" value="" formControlName="roomName">
+          </md-input-container>
+          <md-input-container>
+            <input mdInput placeholder="Handle" value="" formControlName="handle">
+          </md-input-container>
+          <button md-button>Go</button>
+        </form>
+      </md-card-content>
     </md-card>
   </div>
 </div>
