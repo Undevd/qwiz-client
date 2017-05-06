@@ -30,6 +30,10 @@ export class WaitingComponent implements OnInit {
     this.quizService.sendMessage('message');
   }
 
+  canStartGame(): boolean {
+    return this.quizService.isReady();
+  }
+
   startGame() {
     this.quizService.startGame();
   }

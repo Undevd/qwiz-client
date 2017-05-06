@@ -8,15 +8,22 @@ export class QuizService {
 
   websocket: WebSocket;
   currentHandle: string;
-  currentQuestion: string = 'What is irrational?';
-  currentAnswers: string[] = ['one', 'a half', 'seventeenthousand', 'pi'];
-  correctAnswer: string = 'pi';
+  currentQuestion: string;
+  currentAnswers: string[];
+  correctAnswer: string;
   chosenAnswer: string;
   questionNumber: number;
   scores;
   maxQuestions = 6;
 
   constructor(private router: Router) { }
+
+  /**
+   * Check if the websocket is ready to send and receive messages
+   */
+  isReady(): boolean {
+    return !!(this.websocket && this.websocket.readyState === 1);
+  }
 
   open(roomDetails) {
     this.currentHandle = roomDetails.handle;
@@ -39,6 +46,17 @@ export class QuizService {
       } as QuizMessage;
       this.websocket.send(JSON.stringify(connection));
       console.log('sent message', JSON.stringify(connection));
+    }, 1000);
+  }
+
+  waitToSend(message: QuizMessage) {
+    setTimeout(() => {
+      if (this.isReady()) {
+        this.websocket.send(JSON.stringify(message));
+        console.log('sent message', JSON.stringify(message));
+      } else {
+        this.waitToSend(message);
+      }
     }, 1000);
   }
 
@@ -215,4 +233,11 @@ export enum QuizMessageType {
   Result,
   Summary,
   Message
+}
+
+export class UserScores {
+  scores: any[];
+  // the scores are in the format
+  // [0] - handle
+  // [1] - score
 }

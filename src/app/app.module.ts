@@ -17,14 +17,16 @@ import { SummaryPageComponent } from './summary-page/summary-page.component';
 import { QuizService } from './quiz-service/quiz.service';
 import { CompleteComponent } from './complete/complete.component';
 
+import { LoggedInGuard } from './logged-in/logged-in.guard';
+
 export const appRoutes: Routes = [
   { path: 'landing', component: LandingComponent },
-  { path: 'waiting/:room/:handle', component: WaitingComponent },
-  { path: 'start', component: StartGameComponent },
-  { path: 'question', component: QuestionComponent },
-  { path: 'outcome', component: OutcomePageComponent },
-  { path: 'summary', component: SummaryPageComponent },
-  { path: 'complete', component: CompleteComponent },
+  { path: 'waiting/:room/:handle', component: WaitingComponent, canActivate: [LoggedInGuard] },
+  { path: 'start', component: StartGameComponent, canActivate: [LoggedInGuard] },
+  { path: 'question', component: QuestionComponent, canActivate: [LoggedInGuard] },
+  { path: 'outcome', component: OutcomePageComponent, canActivate: [LoggedInGuard] },
+  { path: 'summary', component: SummaryPageComponent, canActivate: [LoggedInGuard] },
+  { path: 'complete', component: CompleteComponent, canActivate: [LoggedInGuard] },
   { path: '', redirectTo: '/landing', pathMatch: 'full' }
 ];
 
@@ -52,7 +54,11 @@ export const appRoutes: Routes = [
     MdIconModule,
     MdListModule,
   ],
-  providers: [QuizService],
+  providers: [
+    QuizService,
+
+    LoggedInGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
