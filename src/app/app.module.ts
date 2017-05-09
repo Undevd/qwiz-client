@@ -6,6 +6,8 @@ import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MdCardModule, MdInputModule, MdButtonModule, MdIconModule, MdListModule } from '@angular/material';
 
+import { HostModule } from './host/host.module';
+
 import { AngularMaterialModule } from './angular-material/angular-material.module';
 import { AppComponent } from './app.component';
 import { LandingComponent } from './landing/landing.component';
@@ -47,12 +49,8 @@ export const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),
-    BrowserAnimationsModule,
-    MdCardModule,
-    MdInputModule,
-    MdButtonModule,
-    MdIconModule,
-    MdListModule,
+    AngularMaterialModule,
+    HostModule
   ],
   providers: [
     QuizService,

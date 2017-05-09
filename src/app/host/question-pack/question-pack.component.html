@@ -1,0 +1,34 @@
+<div class="background responsive-padding">
+  <div class="container">
+    <md-card>
+      <md-card-title>Create questions</md-card-title>
+      <md-card-content>
+        <form [formGroup]="questionForm" (ngSubmit)="submit(questionForm.value)" class="block-inputs">
+          <md-select placeholder="Question Pack" formControlName="pack">
+            <md-option *ngFor="let pack of questionPacks" [value]="pack">
+              {{ pack }}
+            </md-option>
+          </md-select>
+          <md-input-container>
+            <input mdInput placeholder="Question" value="" formControlName="question">
+          </md-input-container>
+          <md-input-container>
+            <input mdInput placeholder="Correct" value="" formControlName="correct">
+          </md-input-container>
+          <md-input-container>
+            <input mdInput placeholder="Incorrect" value="" formControlName="incorrect_1">
+          </md-input-container>
+          <md-input-container>
+            <input mdInput placeholder="Incorrect" value="" formControlName="incorrect_2">
+          </md-input-container>
+          <md-input-container>
+            <input mdInput placeholder="Incorrect" value="" formControlName="incorrect_3">
+          </md-input-container>
+          <div class="right-buttons">
+            <button md-button>Create questions</button>
+          </div>
+        </form>
+      </md-card-content>
+    </md-card>
+  </div>
+</div>

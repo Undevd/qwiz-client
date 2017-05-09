@@ -1,0 +1,20 @@
+<div class="background responsive-padding">
+  <div class="container">
+    <md-card>
+      <md-card-title>Host a quiz</md-card-title>
+      <md-card-content>
+        <form [formGroup]="hostForm" (ngSubmit)="submit(roomForm.value)" class="block-inputs">
+          <md-input-container>
+            <input mdInput placeholder="Room Name" value="" formControlName="roomName">
+          </md-input-container>
+          <md-input-container>
+            <input mdInput placeholder="Handle" value="" formControlName="handle">
+          </md-input-container>
+          <div class="right-buttons">
+            <button md-button (click)="createRoom()">Create room</button>
+          </div>
+        </form>
+      </md-card-content>
+    </md-card>
+  </div>
+</div>

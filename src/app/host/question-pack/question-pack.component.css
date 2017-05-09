@@ -1,0 +1,7 @@
+.block-inputs > md-input-container {
+    display: block;
+}
+
+form {
+    margin-top: 10px;
+}
