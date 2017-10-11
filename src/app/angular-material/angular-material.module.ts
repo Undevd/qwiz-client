@@ -1,11 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MdCardModule } from '@angular/material';
+import { MatCardModule, MatGridListModule, MatButtonModule } from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
-    MdCardModule
+    MatCardModule,
+    MatGridListModule,
+    MatButtonModule
+  ],
+  exports: [
+    MatCardModule,
+    MatGridListModule,
+    MatButtonModule
   ],
   declarations: []
 })

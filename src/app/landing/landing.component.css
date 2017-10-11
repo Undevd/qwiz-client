@@ -1,3 +1,16 @@
-.block-inputs > md-input-container {
-    display: block;
+.about-tile {
+    background-color: lightblue;
 }
+
+.join-room-tile {
+    background-color: #1a1e72;
+}
+
+.login-tile {
+    background-color: #2b31af;
+}
+
+.new-room-tile {
+    background-color: #060a5e;
+}
+

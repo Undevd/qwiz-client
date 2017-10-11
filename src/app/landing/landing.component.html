@@ -1,20 +1,37 @@
 <div class="background responsive-padding">
+  <h1>Qwiz</h1>
   <div class="container">
-    <md-card>
-      <md-card-title>Join a room</md-card-title>
-      <md-card-content>
-        <form [formGroup]="roomForm" (ngSubmit)="submit(roomForm.value)" class="block-inputs">
-          <md-input-container>
-            <input mdInput placeholder="Room Name" value="" formControlName="roomName">
-          </md-input-container>
-          <md-input-container>
-            <input mdInput placeholder="Handle" value="" formControlName="handle">
-          </md-input-container>
-          <div class="right-buttons">
-            <button md-button>Go</button>
+
+    
+    <mat-grid-list cols="4" rowHeight="100px">
+      <mat-grid-tile class="new-room-tile" colspan="2" rowspan="2" (click)="newroom()">
+        New
+      </mat-grid-tile>
+
+      <mat-grid-tile class="join-room-tile" colspan="2" rowspan="4">
+        <form [formGroup]="roomForm" (ngSubmit)="joinroom(roomForm.value)" class="block-inputs"> 
+          <div class="example-container">
+            <mat-form-field>
+              <input matInput placeholder="Join Code" formControlName="joinCode">
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput placeholder="Name" formControlName="handle">
+            </mat-form-field>
+            <br />
+            <button mat-raised-button color="accent">Join</button>
           </div>
-        </form>
-      </md-card-content>
-    </md-card>
+        </form> 
+      </mat-grid-tile>
+
+      <mat-grid-tile class="login-tile" colspan="2" rowspan="2">
+        Login
+      </mat-grid-tile>
+
+      <mat-grid-tile class="about-tile" colspan="4" rowspan="1">
+        About
+      </mat-grid-tile>
+
+    </mat-grid-list>
   </div>
 </div>

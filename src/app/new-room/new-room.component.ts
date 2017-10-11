@@ -5,11 +5,11 @@ import { Router } from '@angular/router';
 import { QuizService } from '../quiz-service/quiz.service';
 
 @Component({
-  selector: 'app-landing',
-  templateUrl: './landing.component.html',
-  styleUrls: ['./landing.component.css']
+  selector: 'app-new-room',
+  templateUrl: './new-room.component.html',
+  styleUrls: ['./new-room.component.css']
 })
-export class LandingComponent implements OnInit {
+export class NewRoomComponent implements OnInit {
 
   roomForm: FormGroup;
 
@@ -19,7 +19,7 @@ export class LandingComponent implements OnInit {
     private quizService: QuizService
   ) {
     this.roomForm = this.fb.group({
-      joinCode: this.fb.control(''),
+      roomName: this.fb.control(''),
       handle: this.fb.control('')
     });
   }
@@ -27,15 +27,10 @@ export class LandingComponent implements OnInit {
   ngOnInit() {
   }
 
-  joinroom(formValue) {
-    console.log("Joining :" + formValue);
+  submit(formValue) {
+    console.log(formValue);
     this.quizService.open(formValue);
-    this.router.navigate(['waiting', formValue.joinCode, formValue.handle]);
-  }
-
-  newroom() {
-    console.log("New Room");
-    this.router.navigate(['newroom']);
+    this.router.navigate(['waiting', formValue.roomName, formValue.handle]);
   }
 
 }

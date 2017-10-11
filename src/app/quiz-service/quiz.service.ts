@@ -27,7 +27,7 @@ export class QuizService {
 
   open(roomDetails) {
     this.currentHandle = roomDetails.handle;
-    const url = 'wss://quiz-monster.herokuapp.com/quiz/' + roomDetails.roomName + '/' + roomDetails.handle + '/';
+    const url = 'ws://localhost:8000/quiz/' + roomDetails.roomName + '/' + roomDetails.handle + '/';
     console.log(url);
     this.websocket = new ReconnectingWebSocket(url);
     this.websocket.onopen = () => {

@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MdCardModule, MdInputModule, MdButtonModule, MdIconModule, MdListModule } from '@angular/material';
+import { MatCardModule, MatInputModule, MatButtonModule, MatIconModule, MatListModule } from '@angular/material';
 
 import { AngularMaterialModule } from './angular-material/angular-material.module';
 import { AppComponent } from './app.component';
@@ -18,9 +18,11 @@ import { QuizService } from './quiz-service/quiz.service';
 import { CompleteComponent } from './complete/complete.component';
 
 import { LoggedInGuard } from './logged-in/logged-in.guard';
+import { NewRoomComponent } from './new-room/new-room.component';
 
 export const appRoutes: Routes = [
   { path: 'landing', component: LandingComponent },
+  { path: 'newroom', component: NewRoomComponent },
   { path: 'waiting/:room/:handle', component: WaitingComponent, canActivate: [LoggedInGuard] },
   { path: 'start', component: StartGameComponent, canActivate: [LoggedInGuard] },
   { path: 'question', component: QuestionComponent, canActivate: [LoggedInGuard] },
@@ -39,7 +41,8 @@ export const appRoutes: Routes = [
     QuestionComponent,
     OutcomePageComponent,
     SummaryPageComponent,
-    CompleteComponent
+    CompleteComponent,
+    NewRoomComponent
   ],
   imports: [
     BrowserModule,
@@ -48,11 +51,12 @@ export const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes),
     BrowserAnimationsModule,
-    MdCardModule,
-    MdInputModule,
-    MdButtonModule,
-    MdIconModule,
-    MdListModule,
+    MatCardModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatListModule,
+    AngularMaterialModule
   ],
   providers: [
     QuizService,
