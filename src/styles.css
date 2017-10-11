@@ -1,5 +1,8 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+body {
+  font-family: 'Lato', sans-serif;
+}
 /* You can add global styles to this file, and also import other style files */
 .background {
     min-width: 100vw;
@@ -29,6 +32,11 @@
   margin-right: auto;
   margin-left: auto;
 }
+
+.title {
+  color: white;
+}
+
 @media (min-width: 768px) {
   .container {
     width: 750px;

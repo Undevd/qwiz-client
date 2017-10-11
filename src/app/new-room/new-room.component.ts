@@ -20,6 +20,7 @@ export class NewRoomComponent implements OnInit {
   ) {
     this.roomForm = this.fb.group({
       roomName: this.fb.control(''),
+      topic: this.fb.control(''),
       handle: this.fb.control('')
     });
   }
@@ -31,6 +32,10 @@ export class NewRoomComponent implements OnInit {
     console.log(formValue);
     this.quizService.open(formValue);
     this.router.navigate(['waiting', formValue.roomName, formValue.handle]);
+  }
+
+  home() {
+    this.router.navigate(['landing']);
   }
 
 }
